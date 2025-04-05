@@ -1,5 +1,9 @@
 package com.gildedrose;
 
+import static com.gildedrose.Items.AGED_BRIE;
+import static com.gildedrose.Items.BACKSTAGE_PASSES;
+import static com.gildedrose.Items.SULFURAS;
+
 class GildedRose {
     Item[] items;
 
@@ -14,9 +18,9 @@ class GildedRose {
     }
 
     private void updateQualityItem(Item item) {
-        boolean isAgedBrie = item.name.equals("Aged Brie");
-        boolean isBackstage = item.name.equals("Backstage passes to a TAFKAL80ETC concert");
-        boolean isSulfuras = item.name.equals("Sulfuras, Hand of Ragnaros");
+        boolean isAgedBrie = item.name.equals(AGED_BRIE);
+        boolean isBackstage = item.name.equals(BACKSTAGE_PASSES);
+        boolean isSulfuras = item.name.equals(SULFURAS);
         if (isAgedBrie) {
             if (item.quality < 50) {
                 item.quality = item.quality + 1;
