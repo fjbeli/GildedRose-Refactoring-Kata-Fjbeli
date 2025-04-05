@@ -13,39 +13,28 @@ class GildedRose {
 
     public void updateQuality() {
         for (Item item : items) {
-            updateQualityItem(item);
+            updateItem(item);
         }
     }
 
-    private void updateQualityItem(Item item) {
+    private void updateItem(Item item) {
         if (isAgedBrie(item)) {
-            if (item.quality < 50) {
-                item.quality = item.quality + 1;
-
-            }
+            increaseQuality(item);
 
             item.sellIn = item.sellIn - 1;
 
             if (item.sellIn < 0) {
-                if (item.quality < 50) {
-                    item.quality = item.quality + 1;
-                }
+                increaseQuality(item);
             }
         } else if (isBackstage(item)) {
-            if (item.quality < 50) {
-                item.quality = item.quality + 1;
+            increaseQuality(item);
 
-                if (item.sellIn < 11) {
-                    if (item.quality < 50) {
-                        item.quality = item.quality + 1;
-                    }
-                }
+            if (item.sellIn < 11) {
+                increaseQuality(item);
+            }
 
-                if (item.sellIn < 6) {
-                    if (item.quality < 50) {
-                        item.quality = item.quality + 1;
-                    }
-                }
+            if (item.sellIn < 6) {
+                increaseQuality(item);
             }
 
             item.sellIn = item.sellIn - 1;
@@ -54,16 +43,12 @@ class GildedRose {
                 item.quality = 0;
             }
         } else if (!isSulfuras(item)) {
-            if (item.quality > 0) {
-                item.quality = item.quality - 1;
-            }
+            decreaseQuality(item);
 
             item.sellIn = item.sellIn - 1;
 
             if (item.sellIn < 0) {
-                if (item.quality > 0) {
-                    item.quality = item.quality - 1;
-                }
+                decreaseQuality(item);
             }
         }
     }
@@ -78,6 +63,18 @@ class GildedRose {
 
     private boolean isSulfuras(Item item) {
         return item.name.equals(SULFURAS);
+    }
+
+    private void increaseQuality(Item item) {
+        if (item.quality < 50) {
+            item.quality = item.quality + 1;
+        }
+    }
+
+    private void decreaseQuality(Item item) {
+        if (item.quality > 0) {
+            item.quality = item.quality - 1;
+        }
     }
 
 }
