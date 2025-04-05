@@ -18,10 +18,7 @@ class GildedRose {
     }
 
     private void updateQualityItem(Item item) {
-        boolean isAgedBrie = item.name.equals(AGED_BRIE);
-        boolean isBackstage = item.name.equals(BACKSTAGE_PASSES);
-        boolean isSulfuras = item.name.equals(SULFURAS);
-        if (isAgedBrie) {
+        if (isAgedBrie(item)) {
             if (item.quality < 50) {
                 item.quality = item.quality + 1;
 
@@ -34,7 +31,7 @@ class GildedRose {
                     item.quality = item.quality + 1;
                 }
             }
-        } else if (isBackstage) {
+        } else if (isBackstage(item)) {
             if (item.quality < 50) {
                 item.quality = item.quality + 1;
 
@@ -56,7 +53,7 @@ class GildedRose {
             if (item.sellIn < 0) {
                 item.quality = 0;
             }
-        } else if (!isSulfuras) {
+        } else if (!isSulfuras(item)) {
             if (item.quality > 0) {
                 item.quality = item.quality - 1;
             }
@@ -69,6 +66,18 @@ class GildedRose {
                 }
             }
         }
+    }
+
+    private boolean isAgedBrie(Item item) {
+        return item.name.equals(AGED_BRIE);
+    }
+
+    private boolean isBackstage(Item item) {
+        return item.name.equals(BACKSTAGE_PASSES);
+    }
+
+    private boolean isSulfuras(Item item) {
+        return item.name.equals(SULFURAS);
     }
 
 }
