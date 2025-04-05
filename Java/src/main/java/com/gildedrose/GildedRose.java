@@ -18,21 +18,21 @@ class GildedRose {
     }
 
     private void updateItem(Item item) {
+        decreaseSellIn(item);
         int newQuality = getNewQuality(item);
         updateQuality(item, newQuality);
-        if (isNotSulfuras(item)) {
-            decreaseSellIn(item);
-        }
     }
 
     private int getNewQuality(Item item) {
         switch (item.name) {
             case AGED_BRIE:
-                return 1;
+                return item.sellIn < 0 ? 2 : 1;
             case BACKSTAGE_PASSES:
-                if (item.sellIn < 6) {
+                if (item.sellIn < 0) {
+                    return -item.quality;
+                } else if (item.sellIn < 5) {
                     return 3;
-                } else if (item.sellIn < 11) {
+                } else if (item.sellIn < 10) {
                     return 2;
                 } else {
                     return 1;
@@ -40,12 +40,8 @@ class GildedRose {
             case SULFURAS:
                 return 0;
             default:
-                return -1;
+                return item.sellIn < 0 ? -2 : -1;
         }
-    }
-
-    private boolean isNotSulfuras(Item item) {
-        return !item.name.equals(SULFURAS);
     }
 
     private void updateQuality(Item item, int change) {
@@ -57,26 +53,13 @@ class GildedRose {
     }
 
     private void decreaseSellIn(Item item) {
-        item.sellIn = item.sellIn - 1;
-        if (item.sellIn < 0) {
-            updateQualityForNegativeSellIn(item);
+        if (isNotSulfuras(item)) {
+            item.sellIn = item.sellIn - 1;
         }
     }
 
-    private void updateQualityForNegativeSellIn(Item item) {
-        switch (item.name) {
-            case AGED_BRIE:
-                updateQuality(item, 1);
-                break;
-            case BACKSTAGE_PASSES:
-                updateQuality(item, -(item.quality));
-                break;
-            case SULFURAS:
-                break;
-            default:
-                updateQuality(item, -1);
-                break;
-        }
+    private boolean isNotSulfuras(Item item) {
+        return !item.name.equals(SULFURAS);
     }
 
 }
