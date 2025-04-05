@@ -70,13 +70,17 @@ class GildedRose {
     private void decreaseSellIn(Item item) {
         item.sellIn = item.sellIn - 1;
         if (item.sellIn < 0) {
-            if (isAgedBrie(item)) {
-                increaseQuality(item);
-            } else if (isBackstage(item)) {
-                updateQuality(item, -(item.quality));
-            } else if (!isSulfuras(item)) {
-                decreaseQuality(item);
-            }
+            updateQualityForNegativeSellIn(item);
+        }
+    }
+
+    private void updateQualityForNegativeSellIn(Item item) {
+        if (isAgedBrie(item)) {
+            increaseQuality(item);
+        } else if (isBackstage(item)) {
+            updateQuality(item, -(item.quality));
+        } else if (!isSulfuras(item)) {
+            decreaseQuality(item);
         }
     }
 
