@@ -28,11 +28,11 @@ class GildedRose {
             } else {
                 increaseQuality(item);
             }
-        } else if (!isSulfuras(item)) {
+        } else if (isNotSulfuras(item)) {
             decreaseQuality(item);
         }
 
-        if (!isSulfuras(item)) {
+        if (isNotSulfuras(item)) {
             decreaseSellIn(item);
         }
     }
@@ -45,8 +45,8 @@ class GildedRose {
         return item.name.equals(BACKSTAGE_PASSES);
     }
 
-    private boolean isSulfuras(Item item) {
-        return item.name.equals(SULFURAS);
+    private boolean isNotSulfuras(Item item) {
+        return !item.name.equals(SULFURAS);
     }
 
     private void increaseQuality(Item item) {
@@ -74,7 +74,7 @@ class GildedRose {
             increaseQuality(item);
         } else if (isBackstage(item)) {
             updateQuality(item, -(item.quality));
-        } else if (!isSulfuras(item)) {
+        } else if (isNotSulfuras(item)) {
             decreaseQuality(item);
         }
     }
