@@ -52,19 +52,16 @@ class GildedRose {
     }
 
     private void increaseQuality(Item item) {
-        if (item.quality < 50) {
-            updateQuality(item, 1);
-        }
+        updateQuality(item, 1);
     }
 
     private void decreaseQuality(Item item) {
-        if (item.quality > 0) {
-            updateQuality(item, -1);
-        }
+        updateQuality(item, -1);
     }
 
     private void updateQuality(Item item, int change) {
-        item.quality = item.quality + change;
+        int newQuality = item.quality + change;
+        item.quality = Math.max(0, Math.min(newQuality, 50));
     }
 
     private void decreaseSellIn(Item item) {
