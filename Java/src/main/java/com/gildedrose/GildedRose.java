@@ -20,7 +20,6 @@ class GildedRose {
     private void updateItem(Item item) {
         if (isAgedBrie(item)) {
             increaseQuality(item);
-            decreaseSellIn(item);
         } else if (isBackstage(item)) {
             increaseQuality(item);
 
@@ -31,10 +30,11 @@ class GildedRose {
             if (item.sellIn < 6) {
                 increaseQuality(item);
             }
-
-            decreaseSellIn(item);
         } else if (!isSulfuras(item)) {
             decreaseQuality(item);
+        }
+
+        if(!isSulfuras(item)) {
             decreaseSellIn(item);
         }
     }
