@@ -21,7 +21,7 @@ class GildedRose {
         if (isAgedBrie(item)) {
             increaseQuality(item);
 
-            item.sellIn = item.sellIn - 1;
+            decreaseSellIn(item);
 
             if (item.sellIn < 0) {
                 increaseQuality(item);
@@ -37,7 +37,7 @@ class GildedRose {
                 increaseQuality(item);
             }
 
-            item.sellIn = item.sellIn - 1;
+            decreaseSellIn(item);
 
             if (item.sellIn < 0) {
                 item.quality = 0;
@@ -45,7 +45,7 @@ class GildedRose {
         } else if (!isSulfuras(item)) {
             decreaseQuality(item);
 
-            item.sellIn = item.sellIn - 1;
+            decreaseSellIn(item);
 
             if (item.sellIn < 0) {
                 decreaseQuality(item);
@@ -75,6 +75,10 @@ class GildedRose {
         if (item.quality > 0) {
             item.quality = item.quality - 1;
         }
+    }
+
+    private void decreaseSellIn(Item item) {
+        item.sellIn = item.sellIn - 1;
     }
 
 }
