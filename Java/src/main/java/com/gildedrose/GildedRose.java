@@ -44,21 +44,13 @@ class GildedRose {
         }
     }
 
-    private boolean isAgedBrie(Item item) {
-        return item.name.equals(AGED_BRIE);
-    }
-
-    private boolean isBackstage(Item item) {
-        return item.name.equals(BACKSTAGE_PASSES);
-    }
-
     private boolean isNotSulfuras(Item item) {
         return !item.name.equals(SULFURAS);
     }
 
     private void updateQuality(Item item, int change) {
-        // Quality of sulfuras cannot be altered
-        if (isNotSulfuras(item)) {
+        // The value 0 means nothing to change in the quality.
+        if (change != 0) {
             int newQuality = item.quality + change;
             item.quality = Math.max(0, Math.min(newQuality, 50));
         }
@@ -72,12 +64,18 @@ class GildedRose {
     }
 
     private void updateQualityForNegativeSellIn(Item item) {
-        if (isAgedBrie(item)) {
-            updateQuality(item, 1);
-        } else if (isBackstage(item)) {
-            updateQuality(item, -(item.quality));
-        } else if (isNotSulfuras(item)) {
-            updateQuality(item, -1);
+        switch (item.name) {
+            case AGED_BRIE:
+                updateQuality(item, 1);
+                break;
+            case BACKSTAGE_PASSES:
+                updateQuality(item, -(item.quality));
+                break;
+            case SULFURAS:
+                break;
+            default:
+                updateQuality(item, -1);
+                break;
         }
     }
 
