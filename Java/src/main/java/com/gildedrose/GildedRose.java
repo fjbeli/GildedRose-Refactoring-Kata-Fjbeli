@@ -19,8 +19,8 @@ class GildedRose {
 
     private void updateItem(Item item) {
         decreaseSellIn(item);
-        int newQuality = getNewQuality(item);
-        updateQuality(item, newQuality);
+        int newQualityChange = getQualityChange(item);
+        updateQuality(item, newQualityChange);
     }
 
     /**
@@ -29,7 +29,7 @@ class GildedRose {
      * @param item the item
      * @return the change of the quality
      */
-    private int getNewQuality(Item item) {
+    private int getQualityChange(Item item) {
         switch (item.name) {
             case AGED_BRIE:
                 return item.sellIn < 0 ? 2 : 1;
