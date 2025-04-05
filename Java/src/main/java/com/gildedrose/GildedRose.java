@@ -21,20 +21,18 @@ class GildedRose {
         if (isAgedBrie(item)) {
             increaseQuality(item);
         } else if (isBackstage(item)) {
-            increaseQuality(item);
-
-            if (item.sellIn < 11) {
-                increaseQuality(item);
-            }
-
             if (item.sellIn < 6) {
+                updateQuality(item, 3);
+            } else if (item.sellIn < 11) {
+                updateQuality(item, 2);
+            } else {
                 increaseQuality(item);
             }
         } else if (!isSulfuras(item)) {
             decreaseQuality(item);
         }
 
-        if(!isSulfuras(item)) {
+        if (!isSulfuras(item)) {
             decreaseSellIn(item);
         }
     }
